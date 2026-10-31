@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Pure JS QR Generator",
+  "version": "1.1",
+  "description": "Generates QR codes completely offline with zero external dependencies.",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "icons": {"128":"icon.png"},
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {"128":"icon.png"}
+  }
+}
