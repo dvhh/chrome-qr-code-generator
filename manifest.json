@@ -2,16 +2,14 @@
   "manifest_version": 3,
   "name": "Pure JS QR Generator",
   "version": "1.1",
-  "description": "Generates QR codes completely offline with zero external dependencies.",
+  "description": "Generates QR codes for the current page completely offline.",
   "permissions": [
     "activeTab"
   ],
-  "host_permissions": [
-    "*://*/*"
-  ],
-  "icons": {"128":"icon.png"},
+  "icons": {"16":"icon16.png","32":"icon32.png","48":"icon48.png","128":"icon.png"},
   "action": {
+    "default_title": "Show QR code for this page",
     "default_popup": "popup.html",
-    "default_icon": {"128":"icon.png"}
+    "default_icon": {"16":"icon16.png","32":"icon32.png","48":"icon48.png","128":"icon.png"}
   }
 }

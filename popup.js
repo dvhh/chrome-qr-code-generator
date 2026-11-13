@@ -1,21 +1,22 @@
 "use strict";
-(async ()=>{
-  const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-  const target = document.getElementById('qr-canvas');
-  const ctx = target.getContext('2d');
-  ctx.fillStyle = isDarkMode ? "black" : "white"; 
-  ctx.fillRect(0, 0, target.width, target.height); 
-  if (tabs && tabs.length > 0 && tabs[0].url) {
-    const currentUrl = tabs[0].url;
-    //input.value = currentUrl
-    let qr = new QRious({
-      element: target,
-      value: currentUrl,
-      //background: isDarkMode ? "black" : "white",
-      //backgroundAlpha: 0.0,
-      //foreground:isDarkMode ? "gray" : "black",
-      size:500
-    });
+
+const MAX_QR_BYTES = 2953;
+
+function showMessage(text) {
+  const status = document.getElementById('status');
+  status.textContent = text;
+  status.hidden = false;
+}
+
+(async () => {
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const url = tab && tab.url;
+    if (!url) return showMessage('No URL is available for this page.');
+    if (url.length > MAX_QR_BYTES) return showMessage('This URL is too long for a QR code.');
+    new QRious({ element: document.getElementById('qr-canvas'), value: url, size: 500 });
+    document.querySelector('.canvas-container').hidden = false;
+  } catch (error) {
+    showMessage('Could not generate the QR code: ' + error.message);
   }
 })();
